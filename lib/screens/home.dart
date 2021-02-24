@@ -12,12 +12,15 @@ class _HomeScreenState extends State<HomeScreen> {
         tabBar: CupertinoTabBar(
           items: [
             const BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.double_music_note),
-                label: 'Discover'),
+                icon: Icon(CupertinoIcons.double_music_note), label: "首页"),
+            const BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.double_music_note), label: "健康"),
+            const BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.double_music_note), label: "健康管理"),
             const BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.person),
                 activeIcon: Icon(CupertinoIcons.person_solid),
-                label: 'Me'),
+                label: "我"),
           ],
         ),
         tabBuilder: (BuildContext context, int index) {
