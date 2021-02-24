@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:zenroom/screens/settings.dart';
+import 'package:zenroom/screen/settings.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:zenroom/screens/home.dart';
+import 'package:zenroom/screen/home.dart';
 
 void main() {
   runApp(MyApp());
