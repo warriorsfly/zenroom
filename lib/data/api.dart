@@ -7,14 +7,7 @@ import 'package:zenroom/data/entity/user.dart';
 const String _end_point = r'p.zjgwsjk.com';
 var _client = http.Client();
 
-// Future<BuiltList<Article>> getArticles() async {
-//   return await http
-//       .get(Uri.http(end_point, 'articles'))
-//       .then((value) => jsonDecode(value.body))
-//       .then((value) => BuiltList<Article>.from(value));
-// }
-
-Future<Resp<User>> getUserInfo(String zjlx, String zjhm) async {
+Future<RespSingle<User>> getUserInfo(String zjlx, String zjhm) async {
   Map<String, String> header = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
@@ -23,6 +16,6 @@ Future<Resp<User>> getUserInfo(String zjlx, String zjhm) async {
       .post(Uri.http(_end_point, '/ehr/api/user/archives'),
           headers: header, body: jsonEncode({'zjlx': zjlx, 'zjhm': zjhm}))
       .then((value) => jsonDecode(value.body))
-      .then((value) => Resp.fromJson(
+      .then((value) => RespSingle.fromJson(
           value, (user) => User.fromJson(user as Map<String, dynamic>)));
 }

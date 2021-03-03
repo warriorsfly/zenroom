@@ -6,11 +6,11 @@ part of 'resp.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Resp<T> _$RespFromJson<T>(
+RespSingle<T> _$RespSingleFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) {
-  return Resp<T>(
+  return RespSingle<T>(
     json['statuscode'] as String,
     json['total'] as int,
     fromJsonT(json['repData']),
@@ -18,13 +18,36 @@ Resp<T> _$RespFromJson<T>(
   );
 }
 
-Map<String, dynamic> _$RespToJson<T>(
-  Resp<T> instance,
+Map<String, dynamic> _$RespSingleToJson<T>(
+  RespSingle<T> instance,
   Object Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
       'statuscode': instance.status,
       'total': instance.total,
       'repData': toJsonT(instance.data),
+      'repMsg': instance.msg,
+    };
+
+RespList<T> _$RespListFromJson<T>(
+  Map<String, dynamic> json,
+  T Function(Object? json) fromJsonT,
+) {
+  return RespList<T>(
+    json['statuscode'] as String,
+    json['total'] as int,
+    (json['repData'] as List<dynamic>).map(fromJsonT).toList(),
+    json['repMsg'] as String,
+  );
+}
+
+Map<String, dynamic> _$RespListToJson<T>(
+  RespList<T> instance,
+  Object Function(T value) toJsonT,
+) =>
+    <String, dynamic>{
+      'statuscode': instance.status,
+      'total': instance.total,
+      'repData': instance.data.map(toJsonT).toList(),
       'repMsg': instance.msg,
     };
