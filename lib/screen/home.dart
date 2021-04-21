@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:zenroom/screen/index.dart';
 import 'package:zenroom/screen/settings.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,19 +13,41 @@ class _HomeScreenState extends State<HomeScreen> {
         tabBar: CupertinoTabBar(
           items: [
             const BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.double_music_note), label: "首页"),
+                icon: Icon(
+                  CupertinoIcons.home,
+                  size: 18,
+                ),
+                label: "首页"),
             const BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.double_music_note), label: "健康"),
+                icon: Icon(
+                  CupertinoIcons.heart_slash,
+                  size: 18,
+                ),
+                label: "健康视图"),
             const BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.double_music_note), label: "健康管理"),
+                icon: Icon(
+                  CupertinoIcons.alarm,
+                  size: 18,
+                ),
+                label: "健康管理"),
             const BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.person),
-                activeIcon: Icon(CupertinoIcons.person_solid),
+                icon: Icon(
+                  CupertinoIcons.person,
+                  size: 18,
+                ),
+                activeIcon: Icon(
+                  CupertinoIcons.person,
+                  size: 18,
+                ),
                 label: "我"),
           ],
         ),
         tabBuilder: (BuildContext context, int index) {
           switch (index) {
+            case 0:
+              return CupertinoTabView(
+                builder: (_) => IndexScreen(),
+              );
             default:
               return CupertinoTabView(
                 builder: (_) => SettingsScreen(),
