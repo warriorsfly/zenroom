@@ -37,11 +37,9 @@ class _IndexScreenState extends State<IndexScreen> {
         // )
         SliverSafeArea(
             sliver: SliverPadding(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(16),
                 sliver: SliverGrid.count(
                   crossAxisCount: 4,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
                   children: [
                     IconMenu(
                         title: '就诊记录',

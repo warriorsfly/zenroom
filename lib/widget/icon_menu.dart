@@ -19,21 +19,18 @@ class IconMenu extends StatelessWidget {
   @override
   Widget build(_) => Container(
         alignment: Alignment.center,
-        width: 60,
-        height: 75,
+        width: 50,
+        height: 50,
         child: Column(
           children: [
-            Container(
-                width: 45,
-                height: 45,
-                child: Image.asset(
-                  icon,
-                  width: 45,
-                  height: 45,
-                )),
+            Image.asset(
+              icon,
+              width: 45,
+              height: 45,
+            ),
             Text(
               title,
-              style: TextStyle(fontSize: 10),
+              style: TextStyle(fontSize: 9),
             )
           ],
         ),
