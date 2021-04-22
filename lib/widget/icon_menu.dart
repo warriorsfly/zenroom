@@ -30,7 +30,9 @@ class IconMenu extends StatelessWidget {
             ),
             Text(
               title,
-              style: TextStyle(fontSize: 9),
+              style: TextStyle(
+                fontSize: 9,
+              ),
             )
           ],
         ),
