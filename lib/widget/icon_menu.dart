@@ -17,7 +17,9 @@ class IconMenu extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(_) => Container(
+  Widget build(_) => GestureDetector(
+      onTap: () => onPressed(),
+      child: Container(
         alignment: Alignment.center,
         width: 50,
         height: 50,
@@ -36,5 +38,5 @@ class IconMenu extends StatelessWidget {
             )
           ],
         ),
-      );
+      ));
 }

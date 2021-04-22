@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:zenroom/screen/virecords.dart';
 import 'package:zenroom/widget/icon_menu.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -44,7 +45,13 @@ class _IndexScreenState extends State<IndexScreen> {
                     IconMenu(
                         title: '就诊记录',
                         icon: 'assets/icon/jzjl.png',
-                        onPressed: () => {}),
+                        onPressed: () => {
+                              Navigator.of(context, rootNavigator: true)
+                                  .push<void>(CupertinoPageRoute(
+                                      builder: (context) => ViRecordScreen(
+                                          empi: 'MzIwMTAwMTkyODA2Mjg5ODUx'),
+                                      title: 'login'))
+                            }),
                     IconMenu(
                         title: '检查检验',
                         icon: 'assets/icon/yjbg.png',
