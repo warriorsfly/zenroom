@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:zenroom/screen/home.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'data/entity/user.dart';
+import 'data/provider/root_model.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) => ZenApp();
+void main() {
+  runApp(ZenApp());
 }
 
 class ZenApp extends StatelessWidget {
@@ -16,11 +14,14 @@ class ZenApp extends StatelessWidget {
   // final String initialRoute;
 
   @override
-  Widget build(BuildContext context) => CupertinoApp(
-        title: '禅',
-        initialRoute: '/',
-        routes: {
-          '/': (_) => HomeScreen(),
-        },
+  Widget build(BuildContext context) => Provider<RootModel>(
+        create: (_) => RootModel(),
+        child: CupertinoApp(
+          title: '禅',
+          initialRoute: '/',
+          routes: {
+            '/': (_) => HomeScreen(),
+          },
+        ),
       );
 }

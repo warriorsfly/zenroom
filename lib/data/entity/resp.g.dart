@@ -11,10 +11,9 @@ RespSingle<T> _$RespSingleFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) {
   return RespSingle<T>(
-    json['statuscode'] as String,
-    json['total'] as int,
-    fromJsonT(json['repData']),
-    json['repMsg'] as String,
+    status: json['statuscode'] as String,
+    data: fromJsonT(json['repData']),
+    msg: json['repMsg'] as String,
   );
 }
 
@@ -24,7 +23,6 @@ Map<String, dynamic> _$RespSingleToJson<T>(
 ) =>
     <String, dynamic>{
       'statuscode': instance.status,
-      'total': instance.total,
       'repData': toJsonT(instance.data),
       'repMsg': instance.msg,
     };

@@ -4,11 +4,10 @@ part 'resp.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 class RespSingle<T> {
-  const RespSingle(this.status, this.total, this.data, this.msg);
+  const RespSingle(
+      {required this.status, required this.data, required this.msg});
   @JsonKey(name: 'statuscode')
   final String status;
-  @JsonKey(name: 'total')
-  final int total;
   @JsonKey(name: 'repData')
   final T data;
   @JsonKey(name: 'repMsg')
