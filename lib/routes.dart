@@ -1,126 +1,69 @@
-// import 'package:flutter/foundation.dart';
-// import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:zenroom/screen/home.dart';
+import 'package:zenroom/screen/virecords.dart';
 
-// typedef PathWidgetBuilder = Widget Function(BuildContext, String);
+import 'data/provider/root_model.dart';
 
-// class Path {
-//   const Path(this.pattern, this.builder);
+typedef PathWidgetBuilder = Widget Function(BuildContext, String);
 
-//   /// A RegEx string for route matching.
-//   final String pattern;
+class Path {
+  const Path(this.pattern, this.builder);
 
-//   /// The builder for the associated pattern route. The first argument is the
-//   /// [BuildContext] and the second argument a RegEx match if that is included
-//   /// in the pattern.
-//   ///
-//   /// ```dart
-//   /// Path(
-//   ///   'r'^/demo/([\w-]+)$',
-//   ///   (context, matches) => Page(argument: match),
-//   /// )
-//   /// ```
-//   final PathWidgetBuilder builder;
-// }
+  /// A RegEx string for route matching.
+  final String pattern;
 
-// class RouteConfiguration {
-//   /// List of [Path] to for route matching. When a named route is pushed with
-//   /// [Navigator.pushNamed], the route name is matched with the [Path.pattern]
-//   /// in the list below. As soon as there is a match, the associated builder
-//   /// will be returned. This means that the paths higher up in the list will
-//   /// take priority.
-//   static List<Path> paths = [
-//     Path(
-//       r'^' + DemoPage.baseRoute + r'/([\w-]+)$',
-//       (context, match) => DemoPage(slug: match),
-//     ),
-//     Path(
-//       r'^' + rally_routes.homeRoute,
-//       (context, match) => StudyWrapper(
-//         study: DeferredWidget(rally.loadLibrary,
-//             () => rally.RallyApp()), // ignore: prefer_const_constructors
-//       ),
-//     ),
-//     Path(
-//       r'^' + shrine_routes.homeRoute,
-//       (context, match) => StudyWrapper(
-//         study: DeferredWidget(shrine.loadLibrary,
-//             () => shrine.ShrineApp()), // ignore: prefer_const_constructors
-//       ),
-//     ),
-//     Path(
-//       r'^' + crane_routes.defaultRoute,
-//       (context, match) => StudyWrapper(
-//         study: DeferredWidget(crane.loadLibrary,
-//             () => crane.CraneApp(), // ignore: prefer_const_constructors
-//             placeholder: DeferredLoadingPlaceholder(name: 'Crane')),
-//       ),
-//     ),
-//     Path(
-//       r'^' + fortnightly_routes.defaultRoute,
-//       (context, match) => StudyWrapper(
-//         study: DeferredWidget(
-//             fortnightly.loadLibrary,
-//             // ignore: prefer_const_constructors
-//             () => fortnightly.FortnightlyApp()),
-//       ),
-//     ),
-//     Path(
-//         r'^' + reply_routes.homeRoute,
-//         // ignore: prefer_const_constructors
-//         (context, match) => StudyWrapper(study: reply.ReplyApp())),
-//     Path(
-//       r'^' + starter_app_routes.defaultRoute,
-//       (context, match) => const StudyWrapper(
-//         study: starter_app.StarterApp(),
-//       ),
-//     ),
-//     Path(
-//       r'^/',
-//       (context, match) => const RootPage(),
-//     ),
-//   ];
+  final PathWidgetBuilder builder;
+}
 
-//   /// The route generator callback used when the app is navigated to a named
-//   /// route. Set it on the [MaterialApp.onGenerateRoute] or
-//   /// [WidgetsApp.onGenerateRoute] to make use of the [paths] for route
-//   /// matching.
-//   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-//     for (final path in paths) {
-//       final regExpPattern = RegExp(path.pattern);
-//       if (regExpPattern.hasMatch(settings.name)) {
-//         final firstMatch = regExpPattern.firstMatch(settings.name);
-//         final match = (firstMatch.groupCount == 1) ? firstMatch.group(1) : null;
-//         if (kIsWeb) {
-//           return NoAnimationMaterialPageRoute<void>(
-//             builder: (context) => path.builder(context, match),
-//             settings: settings,
-//           );
-//         }
-//         return MaterialPageRoute<void>(
-//           builder: (context) => path.builder(context, match),
-//           settings: settings,
-//         );
-//       }
-//     }
+class RouteConfiguration {
+  /// List of [Path] to for route matching. When a named route is pushed with
+  /// [Navigator.pushNamed], the route name is matched with the [Path.pattern]
+  /// in the list below. As soon as there is a match, the associated builder
+  /// will be returned. This means that the paths higher up in the list will
+  /// take priority.
+  static List<Path> paths = [
+    Path(
+      r'^' + ViRecordScreen.baseRoute,
+      (context, match) => ViRecordScreen(empi: match),
+    ),
 
-//     // If no match was found, we let [WidgetsApp.onUnknownRoute] handle it.
-//     return null;
-//   }
-// }
+    /// 根节点最后验证
+    Path(
+      r'^/',
+      (context, match) => FutureProvider<Account?>(
+        create: (_) {
+          var uri = Uri.parse(match);
+          var params = uri.queryParameters;
+          if (params.containsKey('sec')) {
+            return getUserInf(params['sec']!);
+          }
+        },
+        initialData: Account(loggin: Loggin.Logging, msg: '', uloggin: null),
+        child: HomeScreen(),
+      ),
+    ),
+  ];
 
-// class NoAnimationMaterialPageRoute<T> extends MaterialPageRoute<T> {
-//   NoAnimationMaterialPageRoute({
-//     @required WidgetBuilder builder,
-//     RouteSettings settings,
-//   }) : super(builder: builder, settings: settings);
+  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+    for (final path in paths) {
+      final regExpPattern = RegExp(path.pattern);
+      if (regExpPattern.hasMatch(settings.name!)) {
+        final firstMatch = regExpPattern.firstMatch(settings.name!);
+        final match =
+            (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
+        if (kIsWeb) {
+          return CupertinoPageRoute<void>(
+            builder: (context) =>
+                path.builder(context, match ?? settings.name!),
+            settings: settings,
+          );
+        }
+      }
+    }
 
-//   @override
-//   Widget buildTransitions(
-//     BuildContext context,
-//     Animation<double> animation,
-//     Animation<double> secondaryAnimation,
-//     Widget child,
-//   ) {
-//     return child;
-//   }
-// }
+    // If no match was found, we let [WidgetsApp.onUnknownRoute] handle it.
+    return null;
+  }
+}

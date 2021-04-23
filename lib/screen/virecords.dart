@@ -10,6 +10,7 @@ class ViRecordScreen extends StatefulWidget {
   int pageSize = 5;
 
   final List<ViRecord> recors = [];
+  static const String baseRoute = '/vis';
 
   ViRecordScreen({Key? key, required this.empi}) : super(key: key);
   @override

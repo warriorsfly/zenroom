@@ -1,32 +1,32 @@
-import 'package:flutter/cupertino.dart';
-import 'package:zenroom/data/entity/resp.dart';
 import 'package:zenroom/data/entity/user.dart';
 import 'package:zenroom/data/api.dart';
 
-class RootModel extends ChangeNotifier {
-  /// 登陆人信息
-  late RespSingle<User?> _account;
+enum Loggin {
+  Logging,
+  Success,
+  Failed,
+}
 
-  RespSingle<User?> get account => _account;
+class Account {
+  final Loggin loggin;
+  final String msg;
+  final User? uloggin;
 
-  set account(RespSingle<User?> user) {
-    this._account = user;
-    notifyListeners();
-  }
+  Account({required this.loggin, required this.msg, required this.uloggin});
+}
 
-  void getUserInf() async {
-    var params = Uri.base.queryParameters;
-
-    if (params.isNotEmpty &&
-        params.containsKey('sec') &&
-        params['sec'] != null) {
-      try {
-        await descrypt(params['sec']!)
-            .then((value) => getUserInfo('01', value.data?.zjhm ?? ''))
-            .then((value) => {_account = value});
-      } catch (e) {
-        _account = RespSingle(status: '500', data: null, msg: e.toString());
-      }
+/// 登陆人信息
+Future<Account> getUserInf(String? sc) async {
+  if (sc != null) {
+    try {
+      return await descrypt(sc)
+          .then((value) => getUserInfo('01', value.data?.zjhm ?? ''))
+          .then((value) =>
+              Account(loggin: Loggin.Success, msg: '', uloggin: value.data));
+    } catch (e) {
+      return Account(loggin: Loggin.Failed, msg: e.toString(), uloggin: null);
     }
+  } else {
+    return Account(loggin: Loggin.Failed, msg: 'no sec in url', uloggin: null);
   }
 }
