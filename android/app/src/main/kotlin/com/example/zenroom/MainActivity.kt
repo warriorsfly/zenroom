@@ -1,4 +1,4 @@
-package com.example.zenroom
+package com.warriorsfly.zenroom
 
 import io.flutter.embedding.android.FlutterActivity
 
