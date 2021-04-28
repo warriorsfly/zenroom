@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:zenroom/data/provider/root_model.dart';
 import 'package:zenroom/screen/index.dart';
+import 'package:zenroom/screen/login.dart';
 import 'package:zenroom/screen/settings.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String baseRoute = '/';
+  static const String route = '/';
 
   const HomeScreen({Key? key}) : super(key: key);
   @override
@@ -15,11 +16,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext ctx) {
-    var acc = ctx.watch<Account?>();
-    switch (acc?.loggin) {
-      case Loggin.Logging:
+    final sig = ctx.watch<AccountStatus?>();
+    switch (sig?.state) {
+      case SignStatus.Signing:
         return CupertinoActivityIndicator();
-      case Loggin.Success:
+      case SignStatus.SignedIn:
         return CupertinoTabScaffold(
           tabBar: CupertinoTabBar(
             items: [
@@ -46,10 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     CupertinoIcons.person,
                     size: 18,
                   ),
-                  activeIcon: Icon(
-                    CupertinoIcons.person,
-                    size: 18,
-                  ),
                   label: "我"),
             ],
           ),
@@ -68,9 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
         );
 
       default:
-        return Container(
-          child: Text('登陆失败${acc?.msg}'),
-        );
+        // Navigator.of(context).push<void>(CupertinoPageRoute(
+        //       builder: (ctx) => LoginScreen(),
+        //       title: '诊疗记录'));
+        return CupertinoPageScaffold(child: LoginScreen());
     }
   }
 }

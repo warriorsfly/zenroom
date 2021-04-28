@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:zenroom/screen/home.dart';
-import 'package:zenroom/screen/virecords.dart';
+import 'package:zenroom/screen/login.dart';
+import 'package:zenroom/screen/record.dart';
 
 import 'data/provider/root_model.dart';
 
@@ -25,22 +26,26 @@ class RouteConfiguration {
   /// take priority.
   static List<Path> paths = [
     Path(
-      r'^' + ViRecordScreen.baseRoute,
-      (context, match) => ViRecordScreen(empi: match),
+      r'^' + RecordScreen.route,
+      (context, match) => RecordScreen(empi: match),
     ),
 
     /// 根节点最后验证
     Path(
       r'^/',
-      (context, match) => FutureProvider<Account?>(
+      (context, match) => FutureProvider<AccountStatus?>(
         create: (_) {
           var uri = Uri.parse(match);
           var params = uri.queryParameters;
           if (params.containsKey('sec')) {
             return getUserInf(params['sec']!);
+          } else {
+            Future.value(AccountStatus(
+                state: SignStatus.UnSign, msg: '', account: null));
           }
         },
-        initialData: Account(loggin: Loggin.Logging, msg: '', uloggin: null),
+        initialData:
+            AccountStatus(state: SignStatus.Signing, msg: '', account: null),
         child: HomeScreen(),
       ),
     ),

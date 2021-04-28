@@ -7,13 +7,10 @@ void main() {
 }
 
 class ZenApp extends StatelessWidget {
-  // final bool isTestModel;
-  // final String initialRoute;
-
   @override
   Widget build(BuildContext context) => CupertinoApp(
         onGenerateRoute: RouteConfiguration.onGenerateRoute,
         title: 'Allen Walker',
-        initialRoute: HomeScreen.baseRoute,
+        initialRoute: HomeScreen.route,
       );
 }
