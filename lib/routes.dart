@@ -40,7 +40,7 @@ class RouteConfiguration {
           if (params.containsKey('sec')) {
             return getUserInf(params['sec']!);
           } else {
-            Future.value(AccountStatus(
+            return Future.value(AccountStatus(
                 state: SignStatus.UnSign, msg: '', account: null));
           }
         },
@@ -59,6 +59,12 @@ class RouteConfiguration {
         final match =
             (firstMatch?.groupCount == 1) ? firstMatch?.group(1) : null;
         if (kIsWeb) {
+          return CupertinoPageRoute<void>(
+            builder: (context) =>
+                path.builder(context, match ?? settings.name!),
+            settings: settings,
+          );
+        } else {
           return CupertinoPageRoute<void>(
             builder: (context) =>
                 path.builder(context, match ?? settings.name!),
