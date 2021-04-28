@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.warriorsfly.zenroom">
+    package="com.example.zenroom">
    <application
         android:label="zenroom"
         android:icon="@mipmap/ic_launcher">

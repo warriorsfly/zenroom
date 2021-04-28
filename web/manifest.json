@@ -1,6 +1,6 @@
 {
-    "name": "zenroom",
-    "short_name": "zenroom",
+    "name": "智管理",
+    "short_name": "禅",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
