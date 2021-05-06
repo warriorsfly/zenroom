@@ -28,8 +28,8 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
 
-  cupertino_icons: ^1.0.0
-  http: ^0.13.1
+  cupertino_icons: ^1.0.3
+  http: ^0.13.3
   json_annotation: ^4.0.1
   provider: ^5.0.0
 

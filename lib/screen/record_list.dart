@@ -2,23 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:zenroom/data/api.dart';
 import 'package:zenroom/data/entity/resp.dart';
 import 'package:zenroom/data/entity/virecord.dart';
+import 'package:zenroom/screen/record_detail.dart';
 import 'package:zenroom/widget/item_record.dart';
 
 /// 就诊记录页面
-class RecordScreen extends StatefulWidget {
+class RecordListScreen extends StatefulWidget {
   final String empi;
-  int start = 0;
-  int pageSize = 5;
 
   final List<ViRecord> recors = [];
   static const String route = '/vis';
 
-  RecordScreen({Key? key, required this.empi}) : super(key: key);
+  RecordListScreen({Key? key, required this.empi}) : super(key: key);
   @override
-  _RecordScreenState createState() => _RecordScreenState();
+  _RecordListScreenState createState() => _RecordListScreenState();
 }
 
-class _RecordScreenState extends State<RecordScreen> {
+class _RecordListScreenState extends State<RecordListScreen> {
+  int start = 0;
+  int pageSize = 5;
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
@@ -45,10 +46,17 @@ class _RecordScreenState extends State<RecordScreen> {
                     return Container(
                       child: ListView.builder(
                           itemCount: snap.data?.data.length ?? 0,
-                          itemBuilder: (ctx, index) => RecordWidget(
-                              title: snap.data?.data[index].jgmc ?? '',
-                              description: snap.data?.data[index].zdmc ?? '',
-                              expireAt: snap.data?.data[index].kssj ?? '')),
+                          itemBuilder: (ctx, index) => RecordItemWidget(
+                                title: snap.data?.data[index].jgmc ?? '',
+                                description: snap.data?.data[index].zdmc ?? '',
+                                expireAt: snap.data?.data[index].kssj ?? '',
+                                onPressed: () => {
+                                  Navigator.of(context).push<void>(
+                                      CupertinoPageRoute(
+                                          builder: (ctx) =>
+                                              RecordDetailScreen()))
+                                },
+                              )),
                     );
                   default:
                     return Container(

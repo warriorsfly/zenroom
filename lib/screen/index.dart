@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:zenroom/data/provider/root_model.dart';
-import 'package:zenroom/screen/record.dart';
+import 'package:zenroom/screen/record_list.dart';
 import 'package:zenroom/widget/icon_menu.dart';
 
 class IndexScreen extends StatefulWidget {
@@ -51,8 +51,8 @@ class _IndexScreenState extends State<IndexScreen> {
                           final acc = context.read<AccountStatus?>();
                           if (acc != null) {
                             Navigator.of(context).push<void>(CupertinoPageRoute(
-                                builder: (ctx) =>
-                                    RecordScreen(empi: acc.account?.empi ?? ''),
+                                builder: (ctx) => RecordListScreen(
+                                    empi: acc.account?.empi ?? ''),
                                 title: '诊疗记录'));
                           }
                         }),
