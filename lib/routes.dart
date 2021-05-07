@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:zenroom/screen/home.dart';
 import 'package:zenroom/screen/login.dart';
-import 'package:zenroom/screen/record_list.dart';
+import 'package:zenroom/screen/medical-events.dart';
 
 import 'data/provider/root_model.dart';
 
@@ -30,8 +30,8 @@ class RouteConfiguration {
       (context, match) => LoginScreen(),
     ),
     Path(
-      r'^' + RecordListScreen.route,
-      (context, match) => RecordListScreen(empi: match),
+      r'^' + MedicalEventsScreen.route,
+      (context, match) => MedicalEventsScreen(empi: match),
     ),
 
     /// 根节点最后验证

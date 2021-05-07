@@ -6,8 +6,8 @@ part of 'virecord.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ViRecord _$ViRecordFromJson(Map<String, dynamic> json) {
-  return ViRecord(
+MedicalEvent _$ViRecordFromJson(Map<String, dynamic> json) {
+  return MedicalEvent(
     json['JGLX'] as String?,
     json['JGLXMC'] as String?,
     json['KSMC'] as String?,
@@ -38,7 +38,8 @@ ViRecord _$ViRecordFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ViRecordToJson(ViRecord instance) => <String, dynamic>{
+Map<String, dynamic> _$ViRecordToJson(MedicalEvent instance) =>
+    <String, dynamic>{
       'JGLX': instance.jglx,
       'JGLXMC': instance.jglxmc,
       'KSMC': instance.ksmc,

@@ -2,22 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:zenroom/data/api.dart';
 import 'package:zenroom/data/entity/resp.dart';
 import 'package:zenroom/data/entity/virecord.dart';
-import 'package:zenroom/screen/record_detail.dart';
+import 'package:zenroom/screen/medical-event.dart';
 import 'package:zenroom/widget/item_record.dart';
 
 /// 就诊记录页面
-class RecordListScreen extends StatefulWidget {
+class MedicalEventsScreen extends StatefulWidget {
   final String empi;
 
-  final List<ViRecord> recors = [];
-  static const String route = '/vis';
+  final List<MedicalEvent> recors = [];
+  static const String route = '/medical-events';
 
-  RecordListScreen({Key? key, required this.empi}) : super(key: key);
+  MedicalEventsScreen({Key? key, required this.empi}) : super(key: key);
   @override
-  _RecordListScreenState createState() => _RecordListScreenState();
+  _MedicalEventsScreenState createState() => _MedicalEventsScreenState();
 }
 
-class _RecordListScreenState extends State<RecordListScreen> {
+class _MedicalEventsScreenState extends State<MedicalEventsScreen> {
   int start = 0;
   int pageSize = 5;
   @override
@@ -28,19 +28,10 @@ class _RecordListScreenState extends State<RecordListScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // Container(
-          //   height: 100,
-          //   width: MediaQuery.of(context).size.width,
-          //   child: Column(
-          //     children: [
-          //       Text(DateTime.now().toString()),
-          //     ],
-          //   ),
-          // ),
           Expanded(
             child: FutureBuilder(
               future: getJzjl(this.widget.empi, '', '', '', 0, 10),
-              builder: (_, AsyncSnapshot<RespList<ViRecord>> snap) {
+              builder: (_, AsyncSnapshot<RespList<MedicalEvent>> snap) {
                 switch (snap.connectionState) {
                   case ConnectionState.done:
                     return Container(
@@ -54,7 +45,7 @@ class _RecordListScreenState extends State<RecordListScreen> {
                                   Navigator.of(context).push<void>(
                                       CupertinoPageRoute(
                                           builder: (ctx) =>
-                                              RecordDetailScreen()))
+                                              MedicalEventScreen()))
                                 },
                               )),
                     );
