@@ -30,7 +30,7 @@ class RecordItemWidget extends StatelessWidget {
               Expanded(
                 child: Container(
                   child: Icon(
-                    CupertinoIcons.tag_circle,
+                    CupertinoIcons.briefcase,
                   ),
                 ),
                 flex: 1,
