@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class LoginScreen extends StatelessWidget {
-  // static const String route = '/login';
+  static const String route = '/login';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Icon(CupertinoIcons.person_fill),
+                child: Icon(CupertinoIcons.person),
                 flex: 1,
               ),
               Expanded(
@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Icon(CupertinoIcons.lock_fill),
+                child: Icon(CupertinoIcons.lock),
                 flex: 1,
               ),
               Expanded(

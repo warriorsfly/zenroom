@@ -25,8 +25,8 @@ class IconMenu extends StatelessWidget {
           children: [
             Image.asset(
               icon,
-              width: 45,
-              height: 45,
+              width: 30,
+              height: 30,
             ),
             Text(
               title,

@@ -40,7 +40,7 @@ Future<RespSingle<User>> getUserInfo(String zjlx, String zjhm) async {
 }
 
 /// 获取病人就诊信息
-Future<RespList<ViRecord>> getJzjl(String empi, String jkwtmc, String kssj,
+Future<RespList<MedicalEvent>> getJzjl(String empi, String jkwtmc, String kssj,
     String jssj, int start, int limit) async {
   return await _client
       .post(Uri.http(_end_point, '/ehr/api/index/medicalrecord'),
@@ -56,5 +56,5 @@ Future<RespList<ViRecord>> getJzjl(String empi, String jkwtmc, String kssj,
           }))
       .then((value) => jsonDecode(value.body))
       .then((value) => RespList.fromJson(
-          value, (vi) => ViRecord.fromJson(vi as Map<String, dynamic>)));
+          value, (vi) => MedicalEvent.fromJson(vi as Map<String, dynamic>)));
 }

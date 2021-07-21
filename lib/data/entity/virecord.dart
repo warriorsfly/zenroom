@@ -4,7 +4,7 @@ part 'virecord.g.dart';
 
 /// 就诊记录
 @JsonSerializable()
-class ViRecord {
+class MedicalEvent {
   @JsonKey(name: 'JGLX')
   final String? jglx;
   @JsonKey(name: 'JGLXMC')
@@ -60,7 +60,7 @@ class ViRecord {
   @JsonKey(name: 'JGBM')
   final String? jgbm;
 
-  ViRecord(
+  MedicalEvent(
       this.jglx,
       this.jglxmc,
       this.ksmc,
@@ -89,7 +89,7 @@ class ViRecord {
       this.kssj,
       this.jgbm);
 
-  factory ViRecord.fromJson(Map<String, dynamic> json) =>
+  factory MedicalEvent.fromJson(Map<String, dynamic> json) =>
       _$ViRecordFromJson(json);
 
   Map<String?, dynamic> toJson() => _$ViRecordToJson(this);
